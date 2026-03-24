@@ -3,7 +3,7 @@ import cors from '@fastify/cors'
 
 const fastify = Fastify({ logger: true })
 
-await fastify.register(cors, { origin: 'http://localhost:5173' })
+await fastify.register(cors, { origin: 'http://localhost:8080' })
 
 const FAKE_USERS = [
   { username: 'admin', password: 'password', name: 'Admin User', role: 'Administrator' },

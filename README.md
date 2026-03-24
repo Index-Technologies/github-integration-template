@@ -27,3 +27,27 @@ cd .. && npm run both
 ```
 
 App is at `http://localhost:5173`. Default credentials: `admin` / `password`.
+
+## Environment setup
+
+### Config
+
+Alloy Agent environment config for this repo:
+
+```json
+{
+  "homeUrl": "/",
+  "services": [
+    {
+      "name": "site",
+      "start": "cd site && npm run dev -- --host",
+      "install": "cd site && npm install"
+    },
+    {
+      "name": "api",
+      "start": "cd api && npm run dev",
+      "install": "cd api && npm install"
+    }
+  ]
+}
+```

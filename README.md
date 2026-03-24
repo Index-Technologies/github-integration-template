@@ -1,73 +1,29 @@
-# React + TypeScript + Vite
+# github-integration-template
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A starter template for the **Alloy Agent** product. It provides a working full-stack app with fake auth, a homepage, and a dashboard — intended as a base to extend rather than a finished product.
 
-Currently, two official plugins are available:
+## Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+api/        Fastify REST API (Node.js)
+site/       Vite + React frontend
+package.json  root workspace — run both together from here
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## How it works
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **api** runs on port `3001`. It exposes three endpoints: `POST /api/login`, `POST /api/logout`, and `GET /api/me`. Auth is fake — credentials are hardcoded, and sessions are kept in memory.
+- **site** runs on port `5173` via Vite. It proxies `/api` requests to the API. The frontend is a React SPA with three routes: `/` (homepage), `/login`, and `/dashboard` (protected).
+- Auth state is stored in `localStorage` (token + user). The dashboard includes a sidebar, header, content area, and footer.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Getting started
+
+Install dependencies in each package, then run both from the root:
+
+```bash
+cd api && npm install
+cd ../site && npm install
+cd .. && npm run both
 ```
+
+App is at `http://localhost:5173`. Default credentials: `admin` / `password`.

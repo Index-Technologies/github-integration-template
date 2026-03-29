@@ -21,7 +21,7 @@ export default function Home() {
 
       <section className="hero">
         <div className="container">
-          <h1>Manage your work in one place</h1>
+          <h1>Your team's command center</h1>
           <p>MyApp gives your team a simple dashboard to track activity, users, and reports.</p>
           <Link to={user ? '/dashboard' : '/login'} className="btn">
             {user ? 'Go to Dashboard' : 'Get Started'}

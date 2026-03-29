@@ -132,7 +132,7 @@ if (userCount.count === 0) {
 }
 
 const fastify = Fastify({ logger: true })
-await fastify.register(cors, { origin: ['http://localhost:8080', 'http://localhost:3000'] })
+await fastify.register(cors, { origin: true })
 
 function getSessionUser(req) {
   const auth = req.headers['authorization'] ?? ''

@@ -53,3 +53,5 @@ Alloy Agent environment config for this repo:
   ]
 }
 ```
+
+This README was last touched by an AI assistant. 🤖

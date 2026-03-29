@@ -1,5 +1,4 @@
 import Fastify from 'fastify'
-import cors from '@fastify/cors'
 import Database from 'better-sqlite3'
 import { randomBytes } from 'crypto'
 import path from 'path'
@@ -132,7 +131,6 @@ if (userCount.count === 0) {
 }
 
 const fastify = Fastify({ logger: true })
-await fastify.register(cors, { origin: true })
 
 function getSessionUser(req) {
   const auth = req.headers['authorization'] ?? ''

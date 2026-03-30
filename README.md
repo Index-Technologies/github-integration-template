@@ -53,3 +53,5 @@ Alloy Agent environment config for this repo:
   ]
 }
 ```
+
+Made with ☕ and late-night debugging sessions.

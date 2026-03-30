@@ -1,109 +1,417 @@
-import Link from "next/link";
+"use client";
 
-const features = [
+import Link from "next/link";
+import { useEffect, useState } from "react";
+
+const quickAccessItems = [
   {
+    title: "Dashboard",
+    description: "View your overview",
+    href: "/dashboard",
+    gradient: "linear-gradient(135deg, #1DB954 0%, #191414 100%)",
     icon: "◈",
-    title: "Project Tracking",
-    description: "Organize work across projects with status, priority, and progress tracking built in.",
   },
   {
+    title: "Projects",
+    description: "Manage your projects",
+    href: "/dashboard/projects",
+    gradient: "linear-gradient(135deg, #7C3AED 0%, #191414 100%)",
     icon: "⬡",
-    title: "Team Collaboration",
-    description: "Assign tasks to team members, track ownership, and keep everyone aligned.",
   },
   {
+    title: "Activity",
+    description: "Recent updates",
+    href: "/dashboard/activity",
+    gradient: "linear-gradient(135deg, #F59E0B 0%, #191414 100%)",
     icon: "◎",
-    title: "Activity Feed",
-    description: "Full audit trail of every action — see what changed, when, and by who.",
+  },
+  {
+    title: "Tasks",
+    description: "Your todo list",
+    href: "/todos",
+    gradient: "linear-gradient(135deg, #EC4899 0%, #191414 100%)",
+    icon: "✓",
   },
 ];
 
+const features = [
+  {
+    title: "Project Tracking",
+    description: "Organize work across projects with status, priority, and progress tracking built in.",
+    icon: "📊",
+  },
+  {
+    title: "Team Collaboration",
+    description: "Assign tasks to team members, track ownership, and keep everyone aligned.",
+    icon: "👥",
+  },
+  {
+    title: "Activity Feed",
+    description: "Full audit trail of every action — see what changed, when, and by who.",
+    icon: "📋",
+  },
+  {
+    title: "Task Management",
+    description: "Create, assign, and track tasks with due dates, priorities, and custom statuses.",
+    icon: "✅",
+  },
+  {
+    title: "Progress Insights",
+    description: "Visual dashboards showing completion rates and project health at a glance.",
+    icon: "📈",
+  },
+  {
+    title: "Quick Search",
+    description: "Find any project, task, or team member instantly with powerful search.",
+    icon: "🔍",
+  },
+];
+
+function getGreeting() {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  return "Good evening";
+}
+
 export default function HomePage() {
+  const [greeting, setGreeting] = useState("Welcome");
+
+  useEffect(() => {
+    setGreeting(getGreeting());
+  }, []);
+
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b border-zinc-100 px-6 py-4">
-        <div className="mx-auto flex max-w-5xl items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white">
-              N
-            </div>
-            <span className="text-sm font-semibold text-zinc-900">Nexus</span>
+    <div style={{
+      minHeight: "100vh",
+      background: "linear-gradient(180deg, #1a1a2e 0%, #0f0f1a 100%)",
+      color: "#fff",
+    }}>
+      {/* Header */}
+      <header style={{
+        padding: "16px 32px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        position: "sticky",
+        top: 0,
+        zIndex: 50,
+        background: "rgba(15, 15, 26, 0.8)",
+        backdropFilter: "blur(12px)",
+      }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{
+            width: "36px",
+            height: "36px",
+            borderRadius: "10px",
+            background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: 700,
+            fontSize: "16px",
+          }}>
+            N
           </div>
+          <span style={{ fontWeight: 600, fontSize: "18px", letterSpacing: "-0.5px" }}>Nexus</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <Link
+            href="/dashboard"
+            style={{
+              padding: "10px 20px",
+              borderRadius: "500px",
+              background: "transparent",
+              border: "1px solid rgba(255,255,255,0.2)",
+              color: "#fff",
+              fontSize: "14px",
+              fontWeight: 500,
+              textDecoration: "none",
+              transition: "all 0.2s",
+            }}
+          >
+            Explore
+          </Link>
           <Link
             href="/login"
-            className="rounded-full bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
+            style={{
+              padding: "10px 24px",
+              borderRadius: "500px",
+              background: "#fff",
+              color: "#0f0f1a",
+              fontSize: "14px",
+              fontWeight: 600,
+              textDecoration: "none",
+              transition: "all 0.2s",
+            }}
           >
             Sign in
           </Link>
         </div>
       </header>
 
-      <section className="px-6 py-28 text-center">
-        <div className="mx-auto max-w-2xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-            Demo app — SQLite-backed, no Docker needed
-          </div>
-          <h1 className="mb-5 text-5xl font-bold tracking-tight text-zinc-900">
-            Your projects,
-            <br />
-            <span className="text-indigo-600">finally organized</span>
+      {/* Main Content */}
+      <main style={{ padding: "40px 32px", maxWidth: "1400px", margin: "0 auto" }}>
+        {/* Hero Greeting */}
+        <section style={{ marginBottom: "48px" }}>
+          <h1 style={{
+            fontSize: "clamp(32px, 5vw, 48px)",
+            fontWeight: 700,
+            marginBottom: "8px",
+            letterSpacing: "-1px",
+          }}>
+            {greeting}
           </h1>
-          <p className="mb-8 text-lg leading-relaxed text-zinc-500">
-            Nexus is a lightweight project management tool for small teams. Track
-            tasks, ship faster, and keep everyone on the same page.
+          <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "16px" }}>
+            Your projects, finally organized. Jump back in where you left off.
           </p>
-          <div className="flex items-center justify-center gap-3">
+        </section>
+
+        {/* Quick Access Grid */}
+        <section style={{ marginBottom: "56px" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gap: "16px",
+          }}>
+            {quickAccessItems.map((item) => (
+              <Link
+                key={item.title}
+                href={item.href}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "16px",
+                  padding: "0",
+                  borderRadius: "8px",
+                  background: "rgba(255,255,255,0.05)",
+                  textDecoration: "none",
+                  color: "#fff",
+                  overflow: "hidden",
+                  transition: "all 0.2s",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.05)";
+                }}
+              >
+                <div style={{
+                  width: "80px",
+                  height: "80px",
+                  background: item.gradient,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "28px",
+                  flexShrink: 0,
+                }}>
+                  {item.icon}
+                </div>
+                <div style={{ padding: "16px 16px 16px 0" }}>
+                  <h3 style={{ fontWeight: 600, fontSize: "16px", marginBottom: "4px" }}>
+                    {item.title}
+                  </h3>
+                  <p style={{ color: "rgba(255,255,255,0.5)", fontSize: "13px" }}>
+                    {item.description}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Features Section */}
+        <section style={{ marginBottom: "56px" }}>
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            marginBottom: "24px",
+          }}>
+            <h2 style={{ fontSize: "24px", fontWeight: 700, letterSpacing: "-0.5px" }}>
+              Everything you need
+            </h2>
             <Link
               href="/login"
-              className="rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
+              style={{
+                color: "rgba(255,255,255,0.6)",
+                fontSize: "14px",
+                fontWeight: 500,
+                textDecoration: "none",
+              }}
             >
               Get started →
             </Link>
-            <Link
-              href="/dashboard"
-              className="rounded-xl border border-zinc-200 px-6 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-50"
-            >
-              View dashboard
-            </Link>
           </div>
-          <p className="mt-4 text-xs text-zinc-400">
-            Sign in with{" "}
-            <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono">
-              admin / password
-            </code>
-          </p>
-        </div>
-      </section>
-
-      <section className="border-t border-zinc-100 bg-zinc-50 px-6 py-20">
-        <div className="mx-auto max-w-4xl">
-          <h2 className="mb-12 text-center text-2xl font-bold text-zinc-900">
-            Everything your team needs
-          </h2>
-          <div className="grid gap-6 sm:grid-cols-3">
-            {features.map((f) => (
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
+            gap: "24px",
+          }}>
+            {features.map((feature) => (
               <div
-                key={f.title}
-                className="rounded-2xl border border-zinc-200 bg-white p-6"
+                key={feature.title}
+                style={{
+                  padding: "24px",
+                  borderRadius: "12px",
+                  background: "rgba(255,255,255,0.03)",
+                  transition: "all 0.3s",
+                  cursor: "default",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.08)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "rgba(255,255,255,0.03)";
+                }}
               >
-                <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-xl text-indigo-600">
-                  {f.icon}
+                <div style={{
+                  fontSize: "32px",
+                  marginBottom: "16px",
+                }}>
+                  {feature.icon}
                 </div>
-                <h3 className="mb-2 font-semibold text-zinc-900">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-zinc-500">
-                  {f.description}
+                <h3 style={{
+                  fontWeight: 600,
+                  fontSize: "15px",
+                  marginBottom: "8px",
+                }}>
+                  {feature.title}
+                </h3>
+                <p style={{
+                  color: "rgba(255,255,255,0.5)",
+                  fontSize: "13px",
+                  lineHeight: "1.5",
+                }}>
+                  {feature.description}
                 </p>
               </div>
             ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      <footer className="border-t border-zinc-100 px-6 py-8 text-center">
-        <p className="text-xs text-zinc-400">
-          Nexus — a demo application.{" "}
-          <Link href="/login" className="text-indigo-600 hover:underline">
+        {/* CTA Section */}
+        <section style={{
+          padding: "48px",
+          borderRadius: "16px",
+          background: "linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.1) 100%)",
+          border: "1px solid rgba(99, 102, 241, 0.2)",
+          textAlign: "center",
+          marginBottom: "56px",
+        }}>
+          <h2 style={{
+            fontSize: "28px",
+            fontWeight: 700,
+            marginBottom: "12px",
+            letterSpacing: "-0.5px",
+          }}>
+            Ready to get organized?
+          </h2>
+          <p style={{
+            color: "rgba(255,255,255,0.6)",
+            fontSize: "16px",
+            marginBottom: "24px",
+            maxWidth: "500px",
+            margin: "0 auto 24px",
+          }}>
+            Join teams already using Nexus to ship faster and stay aligned.
+          </p>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "12px", flexWrap: "wrap" }}>
+            <Link
+              href="/login"
+              style={{
+                padding: "14px 32px",
+                borderRadius: "500px",
+                background: "#fff",
+                color: "#0f0f1a",
+                fontSize: "15px",
+                fontWeight: 600,
+                textDecoration: "none",
+                transition: "all 0.2s",
+              }}
+            >
+              Start for free
+            </Link>
+            <Link
+              href="/dashboard"
+              style={{
+                padding: "14px 32px",
+                borderRadius: "500px",
+                background: "transparent",
+                border: "1px solid rgba(255,255,255,0.3)",
+                color: "#fff",
+                fontSize: "15px",
+                fontWeight: 500,
+                textDecoration: "none",
+                transition: "all 0.2s",
+              }}
+            >
+              View demo
+            </Link>
+          </div>
+          <p style={{
+            marginTop: "16px",
+            fontSize: "13px",
+            color: "rgba(255,255,255,0.4)",
+          }}>
+            Demo credentials:{" "}
+            <code style={{
+              background: "rgba(255,255,255,0.1)",
+              padding: "2px 8px",
+              borderRadius: "4px",
+              fontFamily: "monospace",
+            }}>
+              admin / password
+            </code>
+          </p>
+        </section>
+
+        {/* Stats Section */}
+        <section style={{ marginBottom: "48px" }}>
+          <div style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))",
+            gap: "24px",
+            textAlign: "center",
+          }}>
+            {[
+              { value: "10k+", label: "Tasks completed" },
+              { value: "500+", label: "Projects tracked" },
+              { value: "99%", label: "Uptime" },
+              { value: "24/7", label: "Support" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div style={{
+                  fontSize: "36px",
+                  fontWeight: 700,
+                  color: "#6366f1",
+                  marginBottom: "4px",
+                }}>
+                  {stat.value}
+                </div>
+                <div style={{
+                  fontSize: "14px",
+                  color: "rgba(255,255,255,0.5)",
+                }}>
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      {/* Footer */}
+      <footer style={{
+        padding: "32px",
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+        textAlign: "center",
+      }}>
+        <p style={{ fontSize: "13px", color: "rgba(255,255,255,0.4)" }}>
+          Nexus — A demo application.{" "}
+          <Link href="/login" style={{ color: "#6366f1", textDecoration: "none" }}>
             Sign in to explore
           </Link>
         </p>

@@ -4,15 +4,18 @@ export const dynamic = 'force-dynamic'
 
 const API = 'http://127.0.0.1:3001'
 
+const SKIP_HEADERS = new Set(['host', 'connection', 'transfer-encoding', 'keep-alive'])
+
 async function proxy(req: NextRequest, params: Promise<{ path: string[] }>) {
   const { path } = await params
   const url = `${API}/api/${path.join('/')}${req.nextUrl.search}`
 
   const headers = new Headers()
-  const auth = req.headers.get('authorization')
-  const ct = req.headers.get('content-type')
-  if (auth) headers.set('authorization', auth)
-  if (ct) headers.set('content-type', ct)
+  req.headers.forEach((value, key) => {
+    if (!SKIP_HEADERS.has(key.toLowerCase())) {
+      headers.set(key, value)
+    }
+  })
 
   const body = req.method !== 'GET' && req.method !== 'HEAD' ? await req.text() : undefined
 

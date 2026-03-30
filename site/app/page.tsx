@@ -45,9 +45,9 @@ export default function HomePage() {
             Demo app — SQLite-backed, no Docker needed
           </div>
           <h1 className="mb-5 text-5xl font-bold tracking-tight text-zinc-900">
-            Your projects,
+            Build faster,
             <br />
-            <span className="text-indigo-600">finally organized</span>
+            <span className="text-indigo-600">ship smarter</span>
           </h1>
           <p className="mb-8 text-lg leading-relaxed text-zinc-500">
             Nexus is a lightweight project management tool for small teams. Track

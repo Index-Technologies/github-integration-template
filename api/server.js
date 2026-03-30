@@ -144,14 +144,20 @@ function makeToken(userId) {
 function getSessionUser(req) {
   const auth = req.headers['authorization'] ?? ''
   const token = auth.replace('Bearer ', '')
-  if (!token) return null
+  if (!token) { console.log('[auth] no token'); return null }
   try {
-    const [header, payload, sig] = token.split('.')
+    const parts = token.split('.')
+    console.log('[auth] token parts:', parts.length)
+    if (parts.length !== 3) { console.log('[auth] bad token format'); return null }
+    const [header, payload, sig] = parts
     const expected = createHmac('sha256', JWT_SECRET).update(`${header}.${payload}`).digest('base64url')
+    console.log('[auth] sig match:', sig === expected, '| sig:', sig?.substring(0, 10), '| expected:', expected?.substring(0, 10))
     if (sig !== expected) return null
-    const { sub } = JSON.parse(Buffer.from(payload, 'base64url').toString())
-    return db.prepare('SELECT id, username, name, role, avatar FROM users WHERE id = ?').get(sub) ?? null
-  } catch {
+    const decoded = JSON.parse(Buffer.from(payload, 'base64url').toString())
+    console.log('[auth] sub:', decoded.sub)
+    return db.prepare('SELECT id, username, name, role, avatar FROM users WHERE id = ?').get(decoded.sub) ?? null
+  } catch (e) {
+    console.log('[auth] error:', e.message)
     return null
   }
 }

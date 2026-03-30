@@ -1,4 +1,4 @@
-const API = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}:3001` : 'http://localhost:3001'
+const API = ''
 
 function getToken() {
   return typeof window !== 'undefined' ? localStorage.getItem('nexus_token') : null

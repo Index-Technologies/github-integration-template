@@ -85,7 +85,7 @@ export default function HomePage() {
             {features.map((f) => (
               <div
                 key={f.title}
-                className="rounded-2xl border border-zinc-200 bg-white p-6"
+                className="rounded-2xl border border-zinc-200 bg-white p-6 transition-all duration-200 hover:shadow-lg hover:-translate-y-1 hover:border-indigo-200"
               >
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-xl text-indigo-600">
                   {f.icon}

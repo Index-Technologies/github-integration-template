@@ -53,3 +53,5 @@ Alloy Agent environment config for this repo:
   ]
 }
 ```
+
+🚀 May your code compile on the first try!

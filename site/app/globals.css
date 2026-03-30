@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Landing page responsive styles */
+@media (max-width: 768px) {
+  .landing-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+}

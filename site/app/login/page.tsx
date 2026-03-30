@@ -34,77 +34,361 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 px-4">
-      <div className="w-full max-w-sm">
-        <div className="mb-8 text-center">
-          <Link href="/" className="inline-flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-600 text-sm font-bold text-white">
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+      {/* Left Panel - Branding */}
+      <div
+        style={{
+          flex: 1,
+          background: "linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #a855f7 100%)",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "48px",
+          position: "relative",
+          overflow: "hidden",
+        }}
+        className="hidden lg:flex"
+      >
+        {/* Decorative circles */}
+        <div
+          style={{
+            position: "absolute",
+            top: "-10%",
+            right: "-5%",
+            width: "400px",
+            height: "400px",
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.1)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: "-15%",
+            left: "-10%",
+            width: "500px",
+            height: "500px",
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.08)",
+          }}
+        />
+
+        {/* Content */}
+        <div style={{ position: "relative", zIndex: 10, textAlign: "center", maxWidth: "400px" }}>
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              marginBottom: "32px",
+            }}
+          >
+            <div
+              style={{
+                width: "56px",
+                height: "56px",
+                borderRadius: "16px",
+                background: "rgba(255,255,255,0.2)",
+                backdropFilter: "blur(8px)",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontSize: "24px",
+                fontWeight: "bold",
+                color: "white",
+              }}
+            >
               N
             </div>
-            <span className="text-base font-semibold text-zinc-900">Nexus</span>
-          </Link>
-          <p className="mt-3 text-sm text-zinc-500">Sign in to your account</p>
-        </div>
+            <span style={{ fontSize: "28px", fontWeight: "700", color: "white" }}>Nexus</span>
+          </div>
 
-        <div className="rounded-2xl border border-zinc-200 bg-white px-8 py-8 shadow-sm">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <div>
-              <label className="mb-1.5 block text-xs font-medium text-zinc-700">
-                Username
-              </label>
-              <input
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="admin"
-                required
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-              />
-            </div>
-            <div>
-              <label className="mb-1.5 block text-xs font-medium text-zinc-700">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                required
-                className="w-full rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm text-zinc-900 placeholder-zinc-400 outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100"
-              />
-            </div>
-            {error && (
-              <p className="rounded-lg bg-red-50 px-3 py-2 text-xs text-red-600">
-                {error}
-              </p>
-            )}
-            <button
-              type="submit"
-              disabled={loading}
-              className="rounded-lg bg-indigo-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:opacity-60"
-            >
-              {loading ? "Signing in..." : "Sign in"}
-            </button>
-          </form>
-        </div>
+          <h1 style={{ fontSize: "36px", fontWeight: "700", color: "white", marginBottom: "16px", lineHeight: "1.2" }}>
+            Welcome back to your workspace
+          </h1>
+          <p style={{ fontSize: "16px", color: "rgba(255,255,255,0.8)", lineHeight: "1.6" }}>
+            Manage your projects, collaborate with your team, and bring your ideas to life.
+          </p>
 
-        <div className="mt-4 rounded-xl border border-zinc-200 bg-white p-4">
-          <p className="mb-2 text-xs font-medium text-zinc-500">Demo accounts</p>
-          <div className="flex flex-col gap-1">
-            {demoAccounts.map(({ u, p, role }) => (
-              <button
-                key={u}
-                onClick={() => { setUsername(u); setPassword(p) }}
-                className="flex items-center justify-between rounded-lg px-2.5 py-1.5 text-left text-xs transition-colors hover:bg-zinc-50"
+          {/* Feature pills */}
+          <div style={{ display: "flex", gap: "12px", marginTop: "32px", justifyContent: "center", flexWrap: "wrap" }}>
+            {["Project Management", "Team Collaboration", "Analytics"].map((feature) => (
+              <span
+                key={feature}
+                style={{
+                  padding: "8px 16px",
+                  borderRadius: "9999px",
+                  background: "rgba(255,255,255,0.15)",
+                  backdropFilter: "blur(4px)",
+                  fontSize: "13px",
+                  color: "white",
+                  fontWeight: "500",
+                }}
               >
-                <span className="font-mono font-medium text-zinc-700">
-                  {u} / {p}
-                </span>
-                <span className="text-zinc-400">{role}</span>
-              </button>
+                {feature}
+              </span>
             ))}
           </div>
+        </div>
+      </div>
+
+      {/* Right Panel - Login Form */}
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "32px",
+          background: "#fafafa",
+          minWidth: "0",
+        }}
+      >
+        <div style={{ width: "100%", maxWidth: "400px" }}>
+          {/* Mobile Logo */}
+          <div className="lg:hidden" style={{ textAlign: "center", marginBottom: "32px" }}>
+            <Link href="/" style={{ display: "inline-flex", alignItems: "center", gap: "10px", textDecoration: "none" }}>
+              <div
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  borderRadius: "12px",
+                  background: "#4f46e5",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                  color: "white",
+                }}
+              >
+                N
+              </div>
+              <span style={{ fontSize: "20px", fontWeight: "700", color: "#18181b" }}>Nexus</span>
+            </Link>
+          </div>
+
+          {/* Header */}
+          <div style={{ marginBottom: "32px" }}>
+            <h2 style={{ fontSize: "24px", fontWeight: "700", color: "#18181b", marginBottom: "8px" }}>
+              Sign in to your account
+            </h2>
+            <p style={{ fontSize: "14px", color: "#71717a" }}>
+              Enter your credentials to access your workspace
+            </p>
+          </div>
+
+          {/* Form Card */}
+          <div
+            style={{
+              background: "white",
+              borderRadius: "16px",
+              padding: "32px",
+              boxShadow: "0 1px 3px rgba(0,0,0,0.05), 0 4px 12px rgba(0,0,0,0.05)",
+              border: "1px solid #e4e4e7",
+            }}
+          >
+            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#3f3f46",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Username
+                </label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    borderRadius: "10px",
+                    border: "1px solid #e4e4e7",
+                    fontSize: "14px",
+                    color: "#18181b",
+                    background: "#fafafa",
+                    outline: "none",
+                    transition: "border-color 0.2s, box-shadow 0.2s",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#a5b4fc"
+                    e.target.style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)"
+                    e.target.style.background = "white"
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#e4e4e7"
+                    e.target.style.boxShadow = "none"
+                    e.target.style.background = "#fafafa"
+                  }}
+                />
+              </div>
+
+              <div>
+                <label
+                  style={{
+                    display: "block",
+                    fontSize: "13px",
+                    fontWeight: "600",
+                    color: "#3f3f46",
+                    marginBottom: "8px",
+                  }}
+                >
+                  Password
+                </label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "12px 16px",
+                    borderRadius: "10px",
+                    border: "1px solid #e4e4e7",
+                    fontSize: "14px",
+                    color: "#18181b",
+                    background: "#fafafa",
+                    outline: "none",
+                    transition: "border-color 0.2s, box-shadow 0.2s",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={(e) => {
+                    e.target.style.borderColor = "#a5b4fc"
+                    e.target.style.boxShadow = "0 0 0 3px rgba(99,102,241,0.1)"
+                    e.target.style.background = "white"
+                  }}
+                  onBlur={(e) => {
+                    e.target.style.borderColor = "#e4e4e7"
+                    e.target.style.boxShadow = "none"
+                    e.target.style.background = "#fafafa"
+                  }}
+                />
+              </div>
+
+              {error && (
+                <div
+                  style={{
+                    padding: "12px 16px",
+                    borderRadius: "10px",
+                    background: "#fef2f2",
+                    border: "1px solid #fecaca",
+                    fontSize: "13px",
+                    color: "#dc2626",
+                  }}
+                >
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  width: "100%",
+                  padding: "14px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background: "linear-gradient(135deg, #4f46e5 0%, #6366f1 100%)",
+                  fontSize: "14px",
+                  fontWeight: "600",
+                  color: "white",
+                  cursor: loading ? "not-allowed" : "pointer",
+                  opacity: loading ? 0.7 : 1,
+                  transition: "opacity 0.2s, transform 0.2s",
+                  boxShadow: "0 2px 8px rgba(79,70,229,0.3)",
+                }}
+              >
+                {loading ? "Signing in..." : "Sign in"}
+              </button>
+            </form>
+          </div>
+
+          {/* Demo Accounts */}
+          <div
+            style={{
+              marginTop: "24px",
+              background: "white",
+              borderRadius: "12px",
+              padding: "16px",
+              border: "1px solid #e4e4e7",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "12px",
+                fontWeight: "600",
+                color: "#71717a",
+                marginBottom: "12px",
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+            >
+              Demo Accounts
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              {demoAccounts.map(({ u, p, role }) => (
+                <button
+                  key={u}
+                  type="button"
+                  onClick={() => {
+                    setUsername(u)
+                    setPassword(p)
+                  }}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    padding: "10px 12px",
+                    borderRadius: "8px",
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                    transition: "background 0.15s",
+                    textAlign: "left",
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.background = "#f4f4f5")}
+                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span style={{ fontFamily: "monospace", fontSize: "13px", fontWeight: "500", color: "#3f3f46" }}>
+                    {u} / {p}
+                  </span>
+                  <span
+                    style={{
+                      fontSize: "11px",
+                      fontWeight: "500",
+                      color: "#6366f1",
+                      background: "#eef2ff",
+                      padding: "4px 8px",
+                      borderRadius: "6px",
+                    }}
+                  >
+                    {role}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Footer */}
+          <p style={{ marginTop: "24px", textAlign: "center", fontSize: "13px", color: "#a1a1aa" }}>
+            Don&apos;t have an account?{" "}
+            <Link href="/" style={{ color: "#6366f1", fontWeight: "500", textDecoration: "none" }}>
+              Get started
+            </Link>
+          </p>
         </div>
       </div>
     </div>

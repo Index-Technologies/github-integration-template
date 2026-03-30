@@ -1,6 +1,5 @@
 import Fastify from 'fastify'
 import Database from 'better-sqlite3'
-import { randomBytes } from 'crypto'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -132,15 +131,24 @@ if (userCount.count === 0) {
 
 const fastify = Fastify({ logger: true })
 
+const TOKEN_SECRET = 'nexus-demo-secret'
+
+function makeToken(userId) {
+  return Buffer.from(`${userId}:${TOKEN_SECRET}`).toString('base64url')
+}
+
 function getSessionUser(req) {
   const auth = req.headers['authorization'] ?? ''
   const token = auth.replace('Bearer ', '')
   if (!token) return null
-  return db.prepare(`
-    SELECT u.id, u.username, u.name, u.role, u.avatar
-    FROM sessions s JOIN users u ON s.user_id = u.id
-    WHERE s.token = ?
-  `).get(token) ?? null
+  try {
+    const decoded = Buffer.from(token, 'base64url').toString('utf8')
+    const [userId, secret] = decoded.split(':')
+    if (secret !== TOKEN_SECRET) return null
+    return db.prepare('SELECT id, username, name, role, avatar FROM users WHERE id = ?').get(parseInt(userId)) ?? null
+  } catch {
+    return null
+  }
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────────
@@ -150,17 +158,13 @@ fastify.post('/api/login', async (req, reply) => {
   const user = db.prepare('SELECT * FROM users WHERE username = ? AND password = ?').get(username, password)
   if (!user) return reply.status(401).send({ error: 'Invalid credentials' })
 
-  const token = randomBytes(24).toString('hex')
-  db.prepare('INSERT INTO sessions (token, user_id) VALUES (?, ?)').run(token, user.id)
+  const token = makeToken(user.id)
   db.prepare(`INSERT INTO activities (user_id, action, resource_type, resource_name) VALUES (?, ?, ?, ?)`).run(user.id, 'signed in', 'session', 'the app')
 
   return { token, user: { id: user.id, username: user.username, name: user.name, role: user.role, avatar: user.avatar } }
 })
 
-fastify.post('/api/logout', async (req) => {
-  const auth = req.headers['authorization'] ?? ''
-  const token = auth.replace('Bearer ', '')
-  db.prepare('DELETE FROM sessions WHERE token = ?').run(token)
+fastify.post('/api/logout', async () => {
   return { ok: true }
 })
 

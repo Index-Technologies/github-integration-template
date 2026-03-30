@@ -8,7 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "both": "concurrently \"cd api && bun run dev\" \"cd site && bun run dev\""
+    "both": "concurrently \"cd api && npm run dev\" \"cd site && npm run dev\""
   },
   "dependencies": {
     "react": "^19.2.4",

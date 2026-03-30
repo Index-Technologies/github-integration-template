@@ -1,5 +1,6 @@
 import Fastify from 'fastify'
 import Database from 'better-sqlite3'
+import jwt from 'jsonwebtoken'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -131,10 +132,10 @@ if (userCount.count === 0) {
 
 const fastify = Fastify({ logger: true })
 
-const TOKEN_SECRET = 'nexus-demo-secret'
+const JWT_SECRET = 'nexus-demo-secret'
 
 function makeToken(userId) {
-  return Buffer.from(`${userId}:${TOKEN_SECRET}`).toString('base64url')
+  return jwt.sign({ sub: userId }, JWT_SECRET)
 }
 
 function getSessionUser(req) {
@@ -142,10 +143,8 @@ function getSessionUser(req) {
   const token = auth.replace('Bearer ', '')
   if (!token) return null
   try {
-    const decoded = Buffer.from(token, 'base64url').toString('utf8')
-    const [userId, secret] = decoded.split(':')
-    if (secret !== TOKEN_SECRET) return null
-    return db.prepare('SELECT id, username, name, role, avatar FROM users WHERE id = ?').get(parseInt(userId)) ?? null
+    const { sub } = jwt.verify(token, JWT_SECRET)
+    return db.prepare('SELECT id, username, name, role, avatar FROM users WHERE id = ?').get(sub) ?? null
   } catch {
     return null
   }

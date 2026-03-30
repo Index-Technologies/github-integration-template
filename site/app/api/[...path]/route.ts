@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+export const dynamic = 'force-dynamic'
+
 const API = 'http://127.0.0.1:3001'
 
 async function proxy(req: NextRequest, params: Promise<{ path: string[] }>) {
@@ -13,7 +15,8 @@ async function proxy(req: NextRequest, params: Promise<{ path: string[] }>) {
   if (ct) headers.set('content-type', ct)
 
   const body = req.method !== 'GET' && req.method !== 'HEAD' ? await req.text() : undefined
-  const res = await fetch(url, { method: req.method, headers, body })
+
+  const res = await fetch(url, { method: req.method, headers, body, cache: 'no-store' })
   const data = await res.text()
 
   return new NextResponse(data, {

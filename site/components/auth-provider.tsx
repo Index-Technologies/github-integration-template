@@ -1,6 +1,7 @@
 "use client"
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react'
+import AuthModal from '@/components/auth-modal'
 
 interface User {
   id: number
@@ -16,6 +17,9 @@ interface AuthContextType {
   login: (username: string, password: string) => Promise<void>
   logout: () => void
   loading: boolean
+  openAuthModal: (redirectTo?: string) => void
+  closeAuthModal: () => void
+  isAuthModalOpen: boolean
 }
 
 const AuthContext = createContext<AuthContextType | null>(null)
@@ -26,6 +30,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [token, setToken] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false)
+  const [modalRedirectTo, setModalRedirectTo] = useState('/dashboard')
+
+  function openAuthModal(redirectTo: string = '/dashboard') {
+    setModalRedirectTo(redirectTo)
+    setIsAuthModalOpen(true)
+  }
+
+  function closeAuthModal() {
+    setIsAuthModalOpen(false)
+  }
 
   useEffect(() => {
     const stored = localStorage.getItem('nexus_token')
@@ -65,8 +80,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, token, login, logout, loading, openAuthModal, closeAuthModal, isAuthModalOpen }}>
       {children}
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={closeAuthModal}
+        redirectTo={modalRedirectTo}
+      />
     </AuthContext.Provider>
   )
 }

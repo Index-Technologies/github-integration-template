@@ -1,4 +1,7 @@
+"use client"
+
 import Link from "next/link";
+import { useAuth } from "@/components/auth-provider";
 
 const features = [
   {
@@ -19,6 +22,7 @@ const features = [
 ];
 
 export default function HomePage() {
+  const { openAuthModal } = useAuth();
   return (
     <div className="min-h-screen bg-white">
       <header className="border-b border-zinc-100 px-6 py-4">
@@ -29,12 +33,12 @@ export default function HomePage() {
             </div>
             <span className="text-sm font-semibold text-zinc-900">Nexus</span>
           </div>
-          <Link
-            href="/login"
+          <button
+            onClick={() => openAuthModal()}
             className="rounded-full bg-indigo-600 px-4 py-1.5 text-sm font-medium text-white transition-colors hover:bg-indigo-700"
           >
             Sign in
-          </Link>
+          </button>
         </div>
       </header>
 
@@ -54,12 +58,12 @@ export default function HomePage() {
             tasks, ship faster, and keep everyone on the same page.
           </p>
           <div className="flex items-center justify-center gap-3">
-            <Link
-              href="/login"
+            <button
+              onClick={() => openAuthModal()}
               className="rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-indigo-700"
             >
               Get started →
-            </Link>
+            </button>
             <Link
               href="/dashboard"
               className="rounded-xl border border-zinc-200 px-6 py-3 text-sm font-semibold text-zinc-700 transition-colors hover:bg-zinc-50"
@@ -103,9 +107,12 @@ export default function HomePage() {
       <footer className="border-t border-zinc-100 px-6 py-8 text-center">
         <p className="text-xs text-zinc-400">
           Nexus — a demo application.{" "}
-          <Link href="/login" className="text-indigo-600 hover:underline">
+          <button
+            onClick={() => openAuthModal()}
+            className="text-indigo-600 hover:underline bg-transparent border-none cursor-pointer p-0"
+          >
             Sign in to explore
-          </Link>
+          </button>
         </p>
       </footer>
     </div>

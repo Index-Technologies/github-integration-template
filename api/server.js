@@ -1,6 +1,6 @@
 import Fastify from 'fastify'
 import Database from 'better-sqlite3'
-import jwt from 'jsonwebtoken'
+import { createHmac } from 'crypto'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
@@ -135,7 +135,10 @@ const fastify = Fastify({ logger: true })
 const JWT_SECRET = 'nexus-demo-secret'
 
 function makeToken(userId) {
-  return jwt.sign({ sub: userId }, JWT_SECRET)
+  const header = Buffer.from(JSON.stringify({ alg: 'HS256', typ: 'JWT' })).toString('base64url')
+  const payload = Buffer.from(JSON.stringify({ sub: userId, iat: Math.floor(Date.now() / 1000) })).toString('base64url')
+  const sig = createHmac('sha256', JWT_SECRET).update(`${header}.${payload}`).digest('base64url')
+  return `${header}.${payload}.${sig}`
 }
 
 function getSessionUser(req) {
@@ -143,7 +146,10 @@ function getSessionUser(req) {
   const token = auth.replace('Bearer ', '')
   if (!token) return null
   try {
-    const { sub } = jwt.verify(token, JWT_SECRET)
+    const [header, payload, sig] = token.split('.')
+    const expected = createHmac('sha256', JWT_SECRET).update(`${header}.${payload}`).digest('base64url')
+    if (sig !== expected) return null
+    const { sub } = JSON.parse(Buffer.from(payload, 'base64url').toString())
     return db.prepare('SELECT id, username, name, role, avatar FROM users WHERE id = ?').get(sub) ?? null
   } catch {
     return null

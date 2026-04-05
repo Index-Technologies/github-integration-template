@@ -42,7 +42,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-2xl">
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
             <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
-            Demo app — SQLite-backed, no Docker needed
+            Demo app — SQLite-backed, no Docker needed ✨
           </div>
           <h1 className="mb-5 text-5xl font-bold tracking-tight text-zinc-900">
             Your projects,

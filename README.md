@@ -53,3 +53,7 @@ Alloy Agent environment config for this repo:
   ]
 }
 ```
+
+---
+
+💡 **Pro tip:** The SQLite database resets on container rebuild, so feel free to experiment freely!

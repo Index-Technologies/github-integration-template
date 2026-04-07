@@ -21,6 +21,38 @@ const features = [
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
+      {/* Announcement Banner */}
+      <div style={{
+        background: 'linear-gradient(90deg, #4f46e5 0%, #7c3aed 100%)',
+        padding: '8px 16px',
+        textAlign: 'center',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px',
+      }}>
+        <span style={{
+          display: 'inline-block',
+          animation: 'pulse 2s ease-in-out infinite',
+        }}>✨</span>
+        <span style={{
+          color: 'white',
+          fontSize: '13px',
+          fontWeight: 500,
+        }}>
+          New: Real-time collaboration is now live! Work together with your team instantly.
+        </span>
+        <span style={{
+          display: 'inline-block',
+          animation: 'pulse 2s ease-in-out infinite',
+        }}>🚀</span>
+      </div>
+      <style>{`
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 1; }
+          50% { transform: scale(1.2); opacity: 0.8; }
+        }
+      `}</style>
       <header className="border-b border-zinc-100 px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <div className="flex items-center gap-2">

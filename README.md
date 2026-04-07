@@ -26,7 +26,7 @@ cd ../site && npm install
 cd .. && npm run both
 ```
 
-App is at `http://localhost:8080`. Default credentials: `admin` / `password`.
+App is at `http://localhost:8080`. Default credentials: `admin` / `password`. 🚀
 
 Other demo accounts: `jane` / `jane123` (Designer), `john` / `john123` (Developer).
 

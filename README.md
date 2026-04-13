@@ -53,3 +53,7 @@ Alloy Agent environment config for this repo:
   ]
 }
 ```
+
+---
+
+🎲 Fun fact: Octopuses have three hearts and blue blood!

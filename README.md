@@ -53,3 +53,5 @@ Alloy Agent environment config for this repo:
   ]
 }
 ```
+
+Fun fact: A group of flamingos is called a "flamboyance."

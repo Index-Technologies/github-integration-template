@@ -20,14 +20,14 @@ const features = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
-      <header className="border-b border-zinc-100 px-6 py-4">
+    <div className="min-h-screen bg-red-600">
+      <header className="border-b border-red-700 px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white">
               N
             </div>
-            <span className="text-sm font-semibold text-zinc-900">Nexus</span>
+            <span className="text-sm font-semibold text-white">Nexus</span>
           </div>
           <Link
             href="/login"
@@ -40,16 +40,16 @@ export default function HomePage() {
 
       <section className="px-6 py-28 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-300 bg-red-500 px-3 py-1 text-xs font-medium text-white">
+            <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Demo app — SQLite-backed, no Docker needed
           </div>
-          <h1 className="mb-5 text-5xl font-bold tracking-tight text-zinc-900">
+          <h1 className="mb-5 text-5xl font-bold tracking-tight text-white">
             Your projects,
             <br />
-            <span className="text-indigo-600">finally organized</span>
+            <span className="text-white">finally organized</span>
           </h1>
-          <p className="mb-8 text-lg leading-relaxed text-zinc-500">
+          <p className="mb-8 text-lg leading-relaxed text-red-100">
             Nexus is a lightweight project management tool for small teams. Track
             tasks, ship faster, and keep everyone on the same page.
           </p>
@@ -67,18 +67,18 @@ export default function HomePage() {
               View dashboard
             </Link>
           </div>
-          <p className="mt-4 text-xs text-zinc-400">
+          <p className="mt-4 text-xs text-red-100">
             Sign in with{" "}
-            <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono">
+            <code className="rounded bg-red-800 px-1.5 py-0.5 font-mono text-white">
               admin / password
             </code>
           </p>
         </div>
       </section>
 
-      <section className="border-t border-zinc-100 bg-zinc-50 px-6 py-20">
+      <section className="border-t border-red-700 bg-red-700 px-6 py-20">
         <div className="mx-auto max-w-4xl">
-          <h2 className="mb-12 text-center text-2xl font-bold text-zinc-900">
+          <h2 className="mb-12 text-center text-2xl font-bold text-white">
             Everything your team needs
           </h2>
           <div className="grid gap-6 sm:grid-cols-3">
@@ -100,10 +100,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-zinc-100 px-6 py-8 text-center">
-        <p className="text-xs text-zinc-400">
+      <footer className="border-t border-red-700 px-6 py-8 text-center">
+        <p className="text-xs text-red-100">
           Nexus — a demo application.{" "}
-          <Link href="/login" className="text-indigo-600 hover:underline">
+          <Link href="/login" className="text-white hover:underline">
             Sign in to explore
           </Link>
         </p>

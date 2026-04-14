@@ -20,8 +20,8 @@ const features = [
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-red-600">
-      <header className="border-b border-red-700 px-6 py-4">
+    <div className="min-h-screen bg-blue-600">
+      <header className="border-b border-blue-700 px-6 py-4">
         <div className="mx-auto flex max-w-5xl items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-600 text-xs font-bold text-white">
@@ -40,7 +40,7 @@ export default function HomePage() {
 
       <section className="px-6 py-28 text-center">
         <div className="mx-auto max-w-2xl">
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-red-300 bg-red-500 px-3 py-1 text-xs font-medium text-white">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-blue-300 bg-blue-500 px-3 py-1 text-xs font-medium text-white">
             <span className="h-1.5 w-1.5 rounded-full bg-white" />
             Demo app — SQLite-backed, no Docker needed
           </div>
@@ -49,7 +49,7 @@ export default function HomePage() {
             <br />
             <span className="text-white">finally organized</span>
           </h1>
-          <p className="mb-8 text-lg leading-relaxed text-red-100">
+          <p className="mb-8 text-lg leading-relaxed text-blue-100">
             Nexus is a lightweight project management tool for small teams. Track
             tasks, ship faster, and keep everyone on the same page.
           </p>
@@ -67,16 +67,16 @@ export default function HomePage() {
               View dashboard
             </Link>
           </div>
-          <p className="mt-4 text-xs text-red-100">
+          <p className="mt-4 text-xs text-blue-100">
             Sign in with{" "}
-            <code className="rounded bg-red-800 px-1.5 py-0.5 font-mono text-white">
+            <code className="rounded bg-blue-800 px-1.5 py-0.5 font-mono text-white">
               admin / password
             </code>
           </p>
         </div>
       </section>
 
-      <section className="border-t border-red-700 bg-red-700 px-6 py-20">
+      <section className="border-t border-blue-700 bg-blue-700 px-6 py-20">
         <div className="mx-auto max-w-4xl">
           <h2 className="mb-12 text-center text-2xl font-bold text-white">
             Everything your team needs
@@ -100,8 +100,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-red-700 px-6 py-8 text-center">
-        <p className="text-xs text-red-100">
+      <footer className="border-t border-blue-700 px-6 py-8 text-center">
+        <p className="text-xs text-blue-100">
           Nexus — a demo application.{" "}
           <Link href="/login" className="text-white hover:underline">
             Sign in to explore

@@ -56,7 +56,7 @@ export default function DashboardLayout({
 
   if (loading || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-red-600">
+      <div className="flex min-h-screen items-center justify-center bg-blue-600">
         <div className="text-sm text-zinc-400">Loading...</div>
       </div>
     )
@@ -119,7 +119,7 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main area */}
-      <div className="flex flex-1 flex-col bg-red-600">
+      <div className="flex flex-1 flex-col bg-blue-600">
         {/* Top bar */}
         <header className="flex items-center justify-end border-b border-zinc-200 bg-white px-6 py-3">
           <div className="relative">

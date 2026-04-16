@@ -1,0 +1,28 @@
+# Alloy dev environment — detected by the sandbox runtime.
+#
+# Requirements:
+#   - All services MUST use `network_mode: host` (no bridge/iptables in sandbox)
+#   - No `build:` directives (no network for BuildKit in sandbox)
+#   - Set `x-alloy.frontend-port` to your frontend's port. The sandbox
+#     auto-proxies port 8080 → that port so Modal can serve it publicly.
+#   - Environment variables are substituted from .env written by the sandbox.
+
+x-alloy:
+  frontend-port: 8080
+
+services:
+  site:
+    image: node:20-slim
+    network_mode: host
+    working_dir: /app/site
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - .:/app
+
+  api:
+    image: node:20-slim
+    network_mode: host
+    working_dir: /app/api
+    command: sh -c "npm install && npm run dev"
+    volumes:
+      - .:/app

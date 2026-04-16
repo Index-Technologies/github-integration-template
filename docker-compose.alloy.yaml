@@ -1,0 +1,30 @@
+x-alloy:
+  install-script: |
+    cd /workspace && npm install
+    cd /workspace/api && npm install
+    cd /workspace/site && npm install
+  before-start-script: ""
+  frontend-port: 8080
+  home-url: /
+  login-script: ""
+
+services:
+  site:
+    image: node:22
+    working_dir: /workspace/site
+    command: npm run dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/workspace
+    depends_on:
+      - api
+
+  api:
+    image: node:22
+    working_dir: /workspace/api
+    command: npm run dev
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/workspace

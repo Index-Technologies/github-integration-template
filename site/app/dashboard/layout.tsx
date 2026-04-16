@@ -190,7 +190,7 @@ export default function DashboardLayout({
           </div>
         </header>
 
-        <main className="flex-1 overflow-auto">{children}</main>
+        <main className="flex-1 overflow-auto" style={{ backgroundColor: 'red' }}>{children}</main>
       </div>
     </div>
   )

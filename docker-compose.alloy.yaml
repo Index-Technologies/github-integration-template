@@ -1,0 +1,41 @@
+services:
+  app:
+    image: node:22-bookworm-slim
+    working_dir: /workspace
+    # Use host networking so the sandbox can reach the Next.js dev server on
+    # :8080 and the Next.js proxy can reach the Fastify API on 127.0.0.1:3001
+    # (the URL is hard-coded in site/app/api/[...path]/route.ts).
+    network_mode: host
+    volumes:
+      - ./:/workspace
+    environment:
+      NODE_ENV: development
+      # Next.js dev server needs to accept connections from the sandbox proxy
+      HOSTNAME: 0.0.0.0
+    # The Next.js site proxies /api/* to http://127.0.0.1:3001, so both
+    # processes must share the same network namespace. Running them inside
+    # a single container is the simplest, most reliable option and matches
+    # the repo's `npm run both` workflow.
+    command:
+      - bash
+      - -lc
+      - |
+        set -e
+        # Install backend deps if missing or the native module is broken for this arch
+        if [ ! -d api/node_modules ]; then
+          (cd api && npm install --no-audit --no-fund)
+        fi
+        # Rebuild native module (better-sqlite3) in case host arch differs
+        (cd api && npm rebuild better-sqlite3 >/dev/null 2>&1 || npm install --no-audit --no-fund)
+
+        # Install frontend deps if missing
+        if [ ! -d site/node_modules ]; then
+          (cd site && npm install --no-audit --no-fund)
+        fi
+
+        # Start the API on :3001 in the background
+        (cd api && node --watch server.js) &
+        API_PID=$!
+
+        # Start the Next.js dev server on :8080 (foreground)
+        cd site && exec npm run dev

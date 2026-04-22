@@ -1,0 +1,18 @@
+services:
+  api:
+    image: node:22-bookworm
+    working_dir: /app
+    network_mode: host
+    volumes:
+      - ./api:/app
+    command: bash -lc "npm install && npm run dev"
+
+  site:
+    image: node:22-bookworm
+    working_dir: /app
+    network_mode: host
+    volumes:
+      - ./site:/app
+    depends_on:
+      - api
+    command: bash -lc "npm install && npm run dev"

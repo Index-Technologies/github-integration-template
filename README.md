@@ -1,6 +1,6 @@
 # github-integration-template
 
-A starter template for the **Alloy Agent** product. It provides a working full-stack demo app with auth, a homepage, dashboard, projects, and activity feed — intended as a base to extend.
+A starter template for the **Alloy Agent** product. It provides a working full-stack demo app with auth, a homepage, dashboard, projects, and activity feed — intended as a foundation to extend.
 
 ## Structure
 

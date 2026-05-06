@@ -1,0 +1,25 @@
+services:
+  api:
+    image: node:22-bookworm
+    working_dir: /workspace/api
+    network_mode: host
+    volumes:
+      - .:/workspace
+    environment:
+      IS_ALLOY: ${IS_ALLOY:-false}
+    command: bash -lc "npm install && npm run dev"
+    restart: unless-stopped
+
+  site:
+    image: node:22-bookworm
+    working_dir: /workspace/site
+    network_mode: host
+    volumes:
+      - .:/workspace
+    depends_on:
+      - api
+    environment:
+      IS_ALLOY: ${IS_ALLOY:-false}
+      PORT: "3000"
+    command: bash -lc "npm install && npx next dev --port 3000 --hostname 0.0.0.0"
+    restart: unless-stopped

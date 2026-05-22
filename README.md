@@ -1,4 +1,4 @@
-# MyApp
+# My App
 
 MyApp is a fake product management app used for Alloy GitHub integration demos.
 It has login, signup, dashboard, projects, tasks, docs, team management,

@@ -1,0 +1,35 @@
+services:
+  app:
+    image: node:22-bookworm
+    working_dir: /workspace
+    network_mode: host
+    environment:
+      DATABASE_URL: postgres://myapp:myapp@localhost:5432/myapp
+      IS_ALLOY: ${IS_ALLOY:-true}
+      NEXT_TELEMETRY_DISABLED: "1"
+    volumes:
+      - .:/workspace
+      - node_modules:/workspace/node_modules
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: bash -lc "npm install && npm run dev"
+
+  postgres:
+    image: postgres:16
+    network_mode: host
+    environment:
+      POSTGRES_USER: myapp
+      POSTGRES_PASSWORD: myapp
+      POSTGRES_DB: myapp
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h localhost -U myapp -d myapp"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  node_modules:
+  postgres_data:
